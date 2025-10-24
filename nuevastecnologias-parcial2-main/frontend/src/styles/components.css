@@ -1,0 +1,4 @@
+.btn { padding: 10px; background: #007bff; color: white; border: none; cursor: pointer; }
+.btn:disabled { background: #ccc; }
+.input { padding: 10px; margin: 5px; width: 100%; }
+.spinner { text-align: center; margin: 20px; }
