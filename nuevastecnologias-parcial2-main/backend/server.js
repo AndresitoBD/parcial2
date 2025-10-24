@@ -22,7 +22,7 @@ app.use(cors({
             'http://127.0.0.1:3000',
             'http://127.0.0.1:3001',
             'http://127.0.0.1:5173'
-          ],
+        ],
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization']
@@ -102,56 +102,12 @@ app.get('/api/test', async (req, res) => {
     }
 });
 
-// ==== DEBUG: Verificar imports ====
-console.log('\n🔍 === DEBUG: VERIFICANDO IMPORTS ===');
-
-try {
-  const pedidoRoutes = require('./routes/pedidos');
-  console.log('✅ routes/pedidos.js cargado:', typeof pedidoRoutes);
-  console.log('   Es función?', typeof pedidoRoutes === 'function');
-  console.log('   Tiene stack?', pedidoRoutes.stack ? 'Sí' : 'No');
-} catch (error) {
-  console.error('❌ Error cargando routes/pedidos.js:', error.message);
-}
-
-try {
-  const pedidoController = require('./controllers/pedidoController');
-  console.log('✅ pedidoController cargado');
-  console.log('   Funciones exportadas:', Object.keys(pedidoController));
-
-  // 🔍 Línea extra para ver si realmente está exportando las funciones
-  console.log('DEBUG pedidoController keys:', Object.keys(pedidoController));
-} catch (error) {
-  console.error('❌ Error cargando pedidoController:', error.message);
-}
-
-try {
-  const { verifyToken, requireTendero, requirePlataforma } = require('./middleware/auth');
-  console.log('✅ middleware/auth cargado');
-  console.log('   verifyToken:', typeof verifyToken);
-  console.log('   requireTendero:', typeof requireTendero);
-  console.log('   requirePlataforma:', typeof requirePlataforma);
-} catch (error) {
-  console.error('❌ Error cargando middleware/auth:', error.message);
-}
-
-try {
-  const { validatePedido } = require('./middleware/validation');
-  console.log('✅ middleware/validation cargado');
-  console.log('   validatePedido:', typeof validatePedido);
-} catch (error) {
-  console.error('❌ Error cargando middleware/validation:', error.message);
-}
-
-console.log('=== FIN DEBUG ===\n');
-// ==== FIN DEBUG ====
-
 // Rutas principales
 app.use('/api/auth', require('./routes/auth'));
 app.use('/api/productos', require('./routes/productos'));
 app.use('/api/zonas', require('./routes/zonas'));
 app.use('/api/pedidos', require('./routes/pedidos'));
-// app.use('/api/usuarios', require('./routes/usuarios'));
+app.use('/api/usuarios', require('./routes/usuarios')); // ✅ ACTIVADA
 
 // Middleware para rutas no encontradas
 app.use('*', (req, res) => {
